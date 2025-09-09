@@ -1,11 +1,96 @@
-export interface Figure {}
+type Shape = 'triangle' | 'circle' | 'rectangle';
+type Color = 'red' | 'green' | 'blue';
 
-export class Triangle implements Figure {}
+export interface Figure {
+  shape: Shape;
+  color: Color;
+  getArea(): number;
+}
 
-export class Circle implements Figure {}
+export class Triangle implements Figure {
+  shape: Shape = 'triangle';
 
-export class Rectangle implements Figure {}
+  constructor(
+    public color: Color,
+    public a: number,
+    public b: number,
+    public c: number,
+  ) {
+    const perimeter: number = a + b + c;
+    const hypotenuse: number = Math.max(a, b, c);
+    const sum = perimeter - hypotenuse;
 
-export function getInfo(figure): string {
-  return typeof figure;
+    if (a <= 0 || b <= 0 || c <= 0) {
+      throw new Error('parametr is not valid');
+    }
+
+    if (hypotenuse >= sum) {
+      throw new Error('riangle sides 1, 2 and 3 can`t form a triangle');
+    }
+  }
+
+  get s(): number {
+    return (this.a + this.b + this.c) / 2;
+  }
+
+  get area(): number {
+    return Math.sqrt(
+      this.s * (this.s - this.a) * (this.s - this.b) * (this.s - this.c),
+    );
+  }
+
+  getArea(): number {
+    return Math.floor(this.area * 100) / 100;
+  }
+}
+
+export class Circle implements Figure {
+  shape: Shape = 'circle';
+
+  constructor(
+    public color: Color,
+    public radius: number,
+  ) {
+    if (this.radius <= 0) {
+      throw new Error('parametr is not valid');
+    }
+  }
+
+  get area(): number {
+    return Math.PI * Math.pow(this.radius, 2);
+  }
+
+  getArea(): number {
+    return Math.floor(this.area * 100) / 100;
+  }
+}
+
+export class Rectangle implements Figure {
+  shape: Shape = 'rectangle';
+
+  constructor(
+    public color: Color,
+    public width: number,
+    public heigth: number,
+  ) {
+    if (this.width <= 0 || this.heigth <= 0) {
+      throw new Error('parametr is not valid');
+    }
+  }
+
+  get area(): number {
+    return this.width * this.heigth;
+  }
+
+  getArea(): number {
+    return Math.floor(this.area * 100) / 100;
+  }
+}
+
+export function getInfo(figure: Figure): string {
+  const { color, shape } = figure;
+
+  const rezul = figure.getArea();
+
+  return `A ${color} ${shape} - ${rezul}`;
 }
