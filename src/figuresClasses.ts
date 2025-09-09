@@ -21,7 +21,7 @@ export class Triangle implements Figure {
     const sum = perimeter - hypotenuse;
 
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('parametr is not valid');
+      throw new Error(`Triangle sides must be > 0: a=${a}, b=${b}, c=${c}`);
     }
 
     if (hypotenuse >= sum) {
@@ -71,15 +71,15 @@ export class Rectangle implements Figure {
   constructor(
     public color: Color,
     public width: number,
-    public heigth: number,
+    public height: number,
   ) {
-    if (this.width <= 0 || this.heigth <= 0) {
+    if (this.width <= 0 || this.height <= 0) {
       throw new Error(`Rectangle dimensions must be > 0: width=${this.width}, height=${this.height}`);
     }
   }
 
   get area(): number {
-    return this.width * this.heigth;
+    return this.width * this.height;
   }
 
 
