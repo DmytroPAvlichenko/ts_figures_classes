@@ -25,7 +25,7 @@ export class Triangle implements Figure {
     }
 
     if (hypotenuse >= sum) {
-      throw new Error('riangle sides 1, 2 and 3 can`t form a triangle');
+      throw new Error(`Triangle sides ${a}, ${b} and ${c} cannot form a triangle`);
     }
   }
 
@@ -52,7 +52,7 @@ export class Circle implements Figure {
     public radius: number,
   ) {
     if (this.radius <= 0) {
-      throw new Error('parametr is not valid');
+      throw new Error(`Circle radius must be > 0: radius=${this.radius}`);
     }
   }
 
@@ -74,13 +74,14 @@ export class Rectangle implements Figure {
     public heigth: number,
   ) {
     if (this.width <= 0 || this.heigth <= 0) {
-      throw new Error('parametr is not valid');
+      throw new Error(`Rectangle dimensions must be > 0: width=${this.width}, height=${this.height}`);
     }
   }
 
   get area(): number {
     return this.width * this.heigth;
   }
+
 
   getArea(): number {
     return Math.floor(this.area * 100) / 100;
